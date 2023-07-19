@@ -32,7 +32,7 @@ def acq(start,stop,step,steptime):
 def save(vals):
     now = datetime.now()
     current_time = now.strftime("%d_%m_%Y--%H-%M-%S")
-    print(current_time)
+    #print(current_time)
     np.savetxt(current_time+".csv",(vals[:][:]), delimiter=',')
 
 def plotin(vals):
@@ -62,21 +62,32 @@ def peakDet(values,thrshold,width):
     return scipy.signal.find_peaks(values[0][:])
 
 def startup():
-    startEV = numHMI(input("Input start eV value"))
-    stopEV = numHMI(input("Input stop eV"))
-    stepEV = numHMI(input("Input step eV"))
-    stepTime = numHMI(input("Input time per step in ms"))
-    singCont = input("Single sweep or continuous?(1 or 2)")
-    if HMI(singCont) == 1:
-        sweepNum = int(input("How many sweeps to do?"))
-        for i in range(sweepNum):
+    startEV = numHMI(input("Input start eV value: "))
+    stopEV = numHMI(input("Input stop eV: "))
+    stepEV = numHMI(input("Input step eV: "))
+    stepTime = numHMI(input("Input time per step in ms: "))
+    singCont = input("Single sweep(1) or continuous(2)?: ")
+    if HMI(singCont) == 2:
+        sweepNum = numHMI(input("How many sweeps to do?: "))
+        for i in range(int(sweepNum)):
             values=acq(startEV,stopEV,stepEV,stepTime)
-            save(values)
+            saveYN = HMI(input("Do you want to save? (Y/N): "))
+            if saveYN == 1: 
+                save(values)
             plotin(values)
             sleep(.01)
             plt.close()
         print("Data acquisition finished")
+    elif HMI(singCont) == 1:
+        values=acq(startEV,stopEV,stepEV,stepTime)
+        saveYN = HMI(input("Do you want to save? (Y/N): "))
+        if saveYN == 1: 
+            save(values)
+        plotin(values)
+        sleep(.01)
+        plt.close()
 
+startup()
 
 
 """    
