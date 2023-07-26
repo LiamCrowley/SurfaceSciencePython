@@ -4,7 +4,20 @@ import numpy as np
 import scipy as sp
 from matplotlib import pyplot as plt
 from datetime import datetime
+"""
+TO DO:
+    !!!!REWRITE PLOTTING TO BE REAL TIME!!!!
 
+    Save Settings
+    Timing precise to better than 1 millisecond
+    Alignment mode 
+    Averaging
+    Dead time for reset
+    Use both counting and lock in for data
+    Autoscaling on or off
+    Multiplex mode (scan different regions)
+
+"""
 """
 WORKING ON ERROR HANDLING PRESENTLY
     Program should reset upon error (ask user if reset? yee)
