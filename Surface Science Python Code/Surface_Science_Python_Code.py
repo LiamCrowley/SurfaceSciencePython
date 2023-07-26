@@ -4,7 +4,20 @@ import numpy as np
 import scipy as sp
 from matplotlib import pyplot as plt
 from datetime import datetime
+"""
+TO DO:
+    !!!!REWRITE PLOTTING TO BE REAL TIME!!!!
 
+    Save Settings
+    Timing precise to better than 1 millisecond
+    Alignment mode 
+    Averaging
+    Dead time for reset
+    Use both counting and lock in for data
+    Autoscaling on or off
+    Multiplex mode (scan different regions)
+
+"""
 """
 WORKING ON ERROR HANDLING PRESENTLY
     Program should reset upon error (ask user if reset? yee)
@@ -38,14 +51,14 @@ def save(vals):
     #print(current_time)
     np.savetxt(current_time+".csv",(vals[:][:]), delimiter=',')
 
-def plotin(vals):
+"""def plotin(vals):
     fig = plt.figure()
     ax = fig.add_subplot(1,1,1)
     ax.plot(vals[0],vals[1])
     plt.show()
     sleep(.1)
     plt.close()
-
+    """
 
 def HMI(userInput):
     if userInput == "y" or userInput == "Y" or userInput == "1":
@@ -79,14 +92,14 @@ def startup():
         sweepNum = numHMI(input("How many sweeps to do?: ")) #Need to work on
         for i in range(int(sweepNum)):
             values=acq(startEV,stopEV,stepEV,stepTime)
-            plotin(values)
+            #plotin(values)
             #saveYN = HMI(input("Do you want to save? (Y/N): "))
             #if saveYN == 1: 
             #    save(values)
         #print("Data acquisition finished")
     elif HMI(singCont) == 1:
         values=acq(startEV,stopEV,stepEV,stepTime)
-        plotin(values)
+        #plotin(values)
         saveYN = HMI(input("Do you want to save? (Y/N): "))
         if saveYN == 1: 
             save(values)
