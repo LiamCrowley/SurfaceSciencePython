@@ -17,6 +17,12 @@ TO DO:
     Autoscaling on or off
     Multiplex mode (scan different regions)
 
+
+
+    UNDERSTAND https://matplotlib.org/stable/gallery/animation/strip_chart.html FOR PLOTTING
+    https://matplotlib.org/stable/gallery/animation/animate_decay.html
+    Need to define in class(?)
+
 """
 """
 WORKING ON ERROR HANDLING PRESENTLY
@@ -42,7 +48,6 @@ def acq(start,stop,step,steptime):
             anOt.write(0.00293*arr[i])#Sets the DAQ output voltage. TBH, I have no idea what this multiplicative constant is, but its in the LabView code, so here it is. 
             #sleep(.01)
             val[i]=anIn.read()
-            sleep(steptime/1000)
     return np.array([arr,val])
 
 def save(vals):
@@ -106,6 +111,25 @@ def startup():
         
         
 startup()
+
+
+
+def animate(i, xs, ys):
+
+
+    # Add x and y to lists
+    #xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
+    #ys.append(temp_c)
+
+    # Limit x and y lists to 20 items
+
+    # Draw x and y lists
+    ax.clear()
+    ax.plot(xs, ys)
+
+# Set up plot to call animate() function periodically
+ani = animation.FuncAnimation(fig, animate, fargs=(xs, ys), interval=steptime/1000)
+plt.show()
 
 
 """    
